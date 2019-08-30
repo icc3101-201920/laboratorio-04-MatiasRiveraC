@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Laboratorio_3_OOP_201902.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,9 +8,9 @@ namespace Laboratorio_3_OOP_201902.Cards
     public abstract class Card
     {
         //Atributos
-        protected string name;
-        protected string type;
-        protected string effect;
+        protected String name;
+        protected EnumType type;
+        protected EnumType effect;
 
         //Constructor
         public Card()
@@ -18,7 +19,7 @@ namespace Laboratorio_3_OOP_201902.Cards
         }
 
         //Propiedades
-        public string Name
+        public String Name
         {
             get
             {
@@ -29,7 +30,7 @@ namespace Laboratorio_3_OOP_201902.Cards
                 this.name = value;
             }
         }
-        public string Type
+        public EnumType Type
         {
             get
             {
@@ -40,7 +41,7 @@ namespace Laboratorio_3_OOP_201902.Cards
                 this.type = value;
             }
         }
-        public string Effect
+        public EnumType Effect
         {
             get
             {

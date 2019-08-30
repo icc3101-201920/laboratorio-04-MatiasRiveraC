@@ -1,4 +1,5 @@
 ﻿using Laboratorio_3_OOP_201902.Cards;
+using Laboratorio_3_OOP_201902.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,11 +15,19 @@ namespace Laboratorio_3_OOP_201902
         private List<Deck> decks;
         private Board boardGame;
         private bool endGame;
-        List<Card> captains = new List<Card>();
-
+        private List<Card> captains;
         //Constructor
         public Game()
         {
+            List<Deck> decks = new List<Deck>();
+            this.decks = decks;
+            Deck deck1 = new Deck();
+            Deck deck2 = new Deck();
+            decks.Add(deck1);
+            decks.Add(deck2);
+            List<Card> captains = new List<Card>();
+            this.captains = captains;
+
 
         }
 
@@ -97,26 +106,58 @@ namespace Laboratorio_3_OOP_201902
 
         public void DeckReader()
         {
-            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\Decks.txt";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\Files\Decks.txt";
             StreamReader File = new StreamReader(path);
-            List<Card> cards = new List<Card>();
+            List<Card> cards1 = new List<Card>();
+            List<Card> cards2 = new List<Card>();
             int i = 0;
             while (!File.EndOfStream)
             { 
                 string line = File.ReadLine();
-                string[] items = line.Split();
-                switch (items[0])
+                string[] items = line.Split(",");
+                if (i == 0)
                 {
-                    case "CombatCard":
-                        cards.Add(new CombatCard(items[1], items[2], items[3], Convert.ToInt32(items[4]), Convert.ToBoolean(items[5])));
-                        break;
-                    case "SpecialCard":
-                        cards.Add(new SpecialCard(items[1], items[2], items[3]));
-                        break;
-                    case "END":
-                        decks[i].Cards = new List<Card>(cards);
-                        i++;
-                        break;
+                    switch (items[0])
+                    {
+
+                        case "CombatCard":
+                            cards1.Add(new CombatCard(items[1], (EnumType)Enum.Parse(typeof(EnumType), items[2]),
+                                (EnumType)Enum.Parse(typeof(EnumType), items[3]), 
+                                Convert.ToInt32(items[4]), 
+                                Convert.ToBoolean(items[5])));
+                            break;
+                        case "SpecialCard":
+                            cards1.Add(new SpecialCard(items[1],
+                                (EnumType)Enum.Parse(typeof(EnumType), items[2])
+                                , (EnumType)Enum.Parse(typeof(EnumType), items[3])));
+                            break;
+                        case "END":
+                            Console.WriteLine("Debug", i);
+                            decks[i].Cards = cards1;
+                            i++;
+                            break;
+                    }
+                }
+                if (i == 1)
+                {
+                    switch (items[0])
+                    {
+
+                        case "CombatCard":
+                            cards2.Add(new CombatCard(items[1], (EnumType)Enum.Parse(typeof(EnumType), items[2]),
+                                (EnumType)Enum.Parse(typeof(EnumType), items[3]),
+                                Convert.ToInt32(items[4]),
+                                Convert.ToBoolean(items[5])));
+                            break;
+                        case "SpecialCard":
+                            cards2.Add(new SpecialCard(items[1],
+                                (EnumType)Enum.Parse(typeof(EnumType), items[2])
+                                , (EnumType)Enum.Parse(typeof(EnumType), items[3])));
+                            break;
+                        case "END":
+                            decks[i].Cards = cards2;
+                            break;
+                    }
                 }
             }
             File.Close();
@@ -124,22 +165,23 @@ namespace Laboratorio_3_OOP_201902
 
         public void CaptainsReader()
         {
-            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\Captains.txt";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + @"\Files\Captains.txt";
             StreamReader File = new StreamReader(path);
-            int i = 0;
             while (!File.EndOfStream)
             {
                 string line = File.ReadLine();
-                string[] items = line.Split();
+                string[] items = line.Split(",");
                 switch (items[0])
                 {
                     case "SpecialCard":
-                        captains.Add(new SpecialCard(items[1], items[2], items[3])); //effect puede tener coma, arreglar
+                        captains.Add(new SpecialCard(items[1],
+                                (EnumType)Enum.Parse(typeof(EnumType), items[2])
+                                , (EnumType)Enum.Parse(typeof(EnumType), items[3]))); 
                         break;
                 }
             }
             File.Close();
-        }
 
+        }
     }
 }

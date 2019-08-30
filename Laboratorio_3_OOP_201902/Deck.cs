@@ -12,7 +12,7 @@ namespace Laboratorio_3_OOP_201902
 
         public Deck()
         {
-
+            this.cards = new List<Card>();
         }
 
         public List<Card> Cards { get => cards; set => cards = value; }

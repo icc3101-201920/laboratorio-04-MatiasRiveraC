@@ -40,6 +40,7 @@ namespace Laboratorio_3_OOP_201902
             Console.WriteLine(board.WeatherCards.Count);
             */
 
+
         }
     }
 }
