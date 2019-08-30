@@ -112,8 +112,8 @@ namespace Laboratorio_3_OOP_201902
             this.playerCards[1] = new Dictionary<EnumType, List<Card>>();
             this.weatherCards = new List<SpecialCard>();
             //Agregar nuevamente los capitanes
-            //AddCard(captainCards[0][0], 0);
-            //AddCard(captainCards[1][0], 1);
+            AddCard(captainCards[0][0], EnumType.None, 0);
+            AddCard(captainCards[1][0], EnumType.None, 1);
         }
         public int[] GetMeleeAttackPoints()
         {
